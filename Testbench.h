@@ -1,29 +1,22 @@
 #pragma once
 
+#include "config.h"
 #include "IPlug_include_in_plug_hdr.h"
 #include "IControls.h"
+#include "TestbenchDSP.h"
+#include "TestbenchConfig.h"
 
 const int kNumPresets = 1;
 
 enum EParams
 {
-  kParamGain = 0,
-  kParamNoteGlideTime,
-  kParamAttack,
-  kParamDecay,
-  kParamSustain,
-  kParamRelease,
-  kParamLFOShape,
-  kParamLFORateHz,
-  kParamLFORateTempo,
-  kParamLFORateMode,
-  kParamLFODepth,
+  kParamTune = 0,
+  kParamVolume,  
   kNumParams
 };
 
 #if IPLUG_DSP
-// will use EParams in Testbench_DSP.h
-#include "Testbench_DSP.h"
+
 #endif
 
 enum EControlTags
@@ -55,8 +48,7 @@ public:
   bool OnMessage(int msgTag, int ctrlTag, int dataSize, const void* pData) override;
 
 private:
-  TestbenchDSP<sample> mDSP {16};
-  IPeakAvgSender<2> mMeterSender;
-  ISender<1> mLFOVisSender;
+  TestbenchDSP* dsp;
+  TestbenchConfig config;
 #endif
 };
