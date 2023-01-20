@@ -34,12 +34,13 @@ Testbench::Testbench(const InstanceInfo& info)
     const IRECT b = pGraphics->GetBounds().GetPadded(-10.f);
 
     const IRECT params = b.GetGridCell(1,2,1);
-    const IRECT outputControls = b.GetGridCell(2,1,3);
-    const int size =    50 ;
+    const IRECT outputControls = b.GetGridCell(0,2,1);;
+    const int size = 50 ;
 
     const IVStyle YELLOW_STYLE = DEFAULT_STYLE.WithColor(kFG, COLOR_YELLOW);
     const IVStyle WHITE_STYLE = DEFAULT_STYLE.WithColor(kFG, COLOR_WHITE);
 
+    pGraphics->AttachControl(new ITextControl(outputControls.GetGridCell(0,2,5,EDirection::Horizontal,2).GetCentredInside(size * 2, size), "Testbed", bigLabel));
     // params
     pGraphics->AttachControl(new IVKnobControl(params.GetGridCell(0,2,5).GetCentredInside(size), kParamA, "A",DEFAULT_STYLE.WithShowValue(false)));
     pGraphics->AttachControl(new IVKnobControl(params.GetGridCell(1,2,5).GetCentredInside(size), kParamB, "B",DEFAULT_STYLE.WithShowValue(false)));
@@ -48,7 +49,7 @@ Testbench::Testbench(const InstanceInfo& info)
     
     // outputControls
 
-    pGraphics->AttachControl(new IVKnobControl(outputControls.GetGridCell(3,2,5).GetCentredInside(size), kParamVolume, "Volume",
+    pGraphics->AttachControl(new IVKnobControl(outputControls.GetGridCell(4,2,5).GetCentredInside(size), kParamVolume, "Volume",
                                                DEFAULT_STYLE.WithShowValue(false)));
 
   };
