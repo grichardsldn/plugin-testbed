@@ -12,6 +12,10 @@ enum EParams
 {
   kParamTune = 0,
   kParamVolume,  
+  kParamA,
+  kParamB,
+  kParamC,
+  kParamD,
   kNumParams
 };
 

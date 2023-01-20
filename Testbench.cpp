@@ -6,6 +6,10 @@ Testbench::Testbench(const InstanceInfo& info)
 : Plugin(info, MakeConfig(kNumParams, kNumPresets))
 {
   GetParam(kParamVolume)->InitDouble("Volume", 0.5,0.0,1.0,0.1,"");
+  GetParam(kParamA)->InitDouble("ParamA", 0.5,0.0,1.0,0.1,"");
+  GetParam(kParamB)->InitDouble("ParamB", 0.5,0.0,1.0,0.1,"");
+  GetParam(kParamC)->InitDouble("ParamC", 0.5,0.0,1.0,0.1,"");
+  GetParam(kParamD)->InitDouble("ParamD", 0.5,0.0,1.0,0.1,"");
 
 #if IPLUG_EDITOR // http://bit.ly/2S64BDd
   mMakeGraphicsFunc = [&]() {
@@ -13,8 +17,8 @@ Testbench::Testbench(const InstanceInfo& info)
   };
   
   mLayoutFunc = [&](IGraphics* pGraphics) {
-    pGraphics->AttachCornerResizer(EUIResizerMode::Scale, false);
-    pGraphics->AttachPanelBackground(COLOR_GRAY);
+    pGraphics->AttachCornerResizer(EUIResizerMode::Scale, true);
+    pGraphics->AttachPanelBackground(COLOR_GREEN);
     pGraphics->EnableMouseOver(true);
     pGraphics->EnableMultiTouch(true);
     
@@ -29,12 +33,18 @@ Testbench::Testbench(const InstanceInfo& info)
     
     const IRECT b = pGraphics->GetBounds().GetPadded(-10.f);
 
-    const IRECT outputControls = b.GetGridCell(4,1,5);
-    const int size = 50;
+    const IRECT params = b.GetGridCell(1,2,1);
+    const IRECT outputControls = b.GetGridCell(2,1,3);
+    const int size =    50 ;
 
     const IVStyle YELLOW_STYLE = DEFAULT_STYLE.WithColor(kFG, COLOR_YELLOW);
     const IVStyle WHITE_STYLE = DEFAULT_STYLE.WithColor(kFG, COLOR_WHITE);
 
+    // params
+    pGraphics->AttachControl(new IVKnobControl(params.GetGridCell(0,2,5).GetCentredInside(size), kParamA, "A",DEFAULT_STYLE.WithShowValue(false)));
+    pGraphics->AttachControl(new IVKnobControl(params.GetGridCell(1,2,5).GetCentredInside(size), kParamB, "B",DEFAULT_STYLE.WithShowValue(false)));
+    pGraphics->AttachControl(new IVKnobControl(params.GetGridCell(2,2,5).GetCentredInside(size), kParamC, "C",DEFAULT_STYLE.WithShowValue(false)));
+    pGraphics->AttachControl(new IVKnobControl(params.GetGridCell(3,2,5).GetCentredInside(size), kParamD, "D",DEFAULT_STYLE.WithShowValue(false))); 
     
     // outputControls
 
@@ -56,6 +66,10 @@ void Testbench::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 
   // global
   config.volume = GetParam(kParamVolume)->Value();
+  config.paramA = GetParam(kParamA)->Value();
+  config.paramB = GetParam(kParamB)->Value();
+  config.paramC = GetParam(kParamC)->Value();
+  config.paramD = GetParam(kParamD)->Value();
 
   const int nChans = NOutChansConnected();
   config.samplerate = GetSampleRate();
