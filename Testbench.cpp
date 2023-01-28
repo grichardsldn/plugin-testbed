@@ -6,6 +6,7 @@ Testbench::Testbench(const InstanceInfo& info)
 : Plugin(info, MakeConfig(kNumParams, kNumPresets))
 {
   GetParam(kParamVolume)->InitDouble("Volume", 0.5,0.0,1.0,0.1,"");
+  GetParam(kParamLFORate)->InitDouble("LFO",  0.3, 0.05, 10.0, 0.01,"");
   GetParam(kParamA)->InitDouble("ParamA", 0.5,0.0,1.0,0.1,"");
   GetParam(kParamB)->InitDouble("ParamB", 0.5,0.0,1.0,0.1,"");
   GetParam(kParamC)->InitDouble("ParamC", 0.5,0.0,1.0,0.1,"");
@@ -52,6 +53,9 @@ Testbench::Testbench(const InstanceInfo& info)
     pGraphics->AttachControl(new IVKnobControl(outputControls.GetGridCell(4,2,5).GetCentredInside(size), kParamVolume, "Volume",
                                                DEFAULT_STYLE.WithShowValue(false)));
 
+    pGraphics->AttachControl(new IVKnobControl(outputControls.GetGridCell(3,2,5).GetCentredInside(size), kParamLFORate, "LFO",
+                                               DEFAULT_STYLE.WithShowValue(false)));                                       
+
   };
 #endif
   
@@ -67,6 +71,7 @@ void Testbench::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 
   // global
   config.volume = GetParam(kParamVolume)->Value();
+  config.lfoRate = GetParam(kParamLFORate)->Value();
   config.paramA = GetParam(kParamA)->Value();
   config.paramB = GetParam(kParamB)->Value();
   config.paramC = GetParam(kParamC)->Value();

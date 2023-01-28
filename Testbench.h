@@ -11,7 +11,8 @@ const int kNumPresets = 1;
 enum EParams
 {
   kParamTune = 0,
-  kParamVolume,  
+  kParamVolume, 
+  kParamLFORate, 
   kParamA,
   kParamB,
   kParamC,
