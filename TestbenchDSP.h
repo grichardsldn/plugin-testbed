@@ -2,6 +2,8 @@
 
 #include "TestbenchConfig.h"
 
+#include "HarmonicSet.h"
+
 class TestbenchDSP {
     public:
     const TestbenchConfig* config;
@@ -14,11 +16,13 @@ class TestbenchDSP {
     // application state
     double left = 0.0;
     bool noteOn = false;
+    HarmonicSet harmonicSet;
 
     public:
     // methods
     TestbenchDSP(const TestbenchConfig* config) {
         this->config = config;
+        this->harmonicSet.SetSquare();
     }
     void ModWheel(double value) {
     }
@@ -45,19 +49,18 @@ class TestbenchDSP {
         }
     }
 
-    double Tick() {
-        double delta = this->currentNote / 1000.0;
+    double OtherTick() {
+        return harmonicSet.through / 6.28;
+    }
 
-        this->left += delta;
-        if (this->left > 1.0) {
-            this->left = 0.0;
-        }
-        if (currentNote != -1 ) {
-            return this->left > config->paramA? (0.1 * config->volume) :(-0.1 * config->volume) ;
+    double Tick() {
+        double a = 440; //frequency of A (coomon value is 440Hz)
+        double hz = (a) * pow(2, (((currentNote) - 69.0) / 12.0));
+        if (currentNote != -1) {
+            return harmonicSet.Tick(config->samplerate, hz / 10.0, config->paramA * 2000.0) * config->volume;
         } else {
             return 0.0;
         }
-        
     }
     private:
 

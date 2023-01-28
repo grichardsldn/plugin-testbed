@@ -80,6 +80,9 @@ void Testbench::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
     for (int c = 0; c < nChans; c++) {
       outputs[c][s] = output;
     }
+    // if (nChans == 2) {
+    //   outputs[1][s] = dsp->OtherTick();
+    // }
   }
 }
 
