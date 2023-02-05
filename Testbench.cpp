@@ -6,9 +6,9 @@ Testbench::Testbench(const InstanceInfo& info)
 : Plugin(info, MakeConfig(kNumParams, kNumPresets))
 {
   GetParam(kParamVolume)->InitDouble("Volume", 0.5,0.0,1.0,0.1,"");
-  GetParam(kParamA)->InitDouble("ParamA", 0.5,0.0,1.0,0.1,"");
-  GetParam(kParamB)->InitDouble("ParamB", 0.5,0.0,1.0,0.1,"");
-  GetParam(kParamC)->InitDouble("ParamC", 0.5,0.0,1.0,0.1,"");
+  GetParam(kParamA)->InitDouble("ParamA", 2.0, 1.0, 10.0, 0.1,"");
+  GetParam(kParamB)->InitDouble("ParamB", 12.0, 2.0, 48.0, 0.1,"");
+  GetParam(kParamC)->InitDouble("ParamC", 0.5,0.0,3.0,0.1,"");
   GetParam(kParamD)->InitDouble("ParamD", 0.5,0.0,1.0,0.1,"");
 
 #if IPLUG_EDITOR // http://bit.ly/2S64BDd
@@ -42,9 +42,9 @@ Testbench::Testbench(const InstanceInfo& info)
 
     pGraphics->AttachControl(new ITextControl(outputControls.GetGridCell(0,2,5,EDirection::Horizontal,2).GetCentredInside(size * 2, size), "Testbed", bigLabel));
     // params
-    pGraphics->AttachControl(new IVKnobControl(params.GetGridCell(0,2,5).GetCentredInside(size), kParamA, "A",DEFAULT_STYLE.WithShowValue(false)));
-    pGraphics->AttachControl(new IVKnobControl(params.GetGridCell(1,2,5).GetCentredInside(size), kParamB, "B",DEFAULT_STYLE.WithShowValue(false)));
-    pGraphics->AttachControl(new IVKnobControl(params.GetGridCell(2,2,5).GetCentredInside(size), kParamC, "C",DEFAULT_STYLE.WithShowValue(false)));
+    pGraphics->AttachControl(new IVKnobControl(params.GetGridCell(0,2,5).GetCentredInside(size), kParamA, "Cutoff",DEFAULT_STYLE.WithShowValue(false)));
+    pGraphics->AttachControl(new IVKnobControl(params.GetGridCell(1,2,5).GetCentredInside(size), kParamB, "Rolloff",DEFAULT_STYLE.WithShowValue(false)));
+    pGraphics->AttachControl(new IVKnobControl(params.GetGridCell(2,2,5).GetCentredInside(size), kParamC, "ResOct",DEFAULT_STYLE.WithShowValue(false)));
     pGraphics->AttachControl(new IVKnobControl(params.GetGridCell(3,2,5).GetCentredInside(size), kParamD, "D",DEFAULT_STYLE.WithShowValue(false))); 
     
     // outputControls

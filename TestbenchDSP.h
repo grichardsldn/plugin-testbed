@@ -39,6 +39,7 @@ class TestbenchDSP {
 
     void NoteOn(int note, int velocity) {
         currentNote = note;
+        harmonicSet.through = 3.14;
         Trigger(note, velocity);
     };
 
@@ -57,7 +58,7 @@ class TestbenchDSP {
         double a = 440; //frequency of A (coomon value is 440Hz)
         double hz = (a) * pow(2, (((currentNote) - 69.0) / 12.0));
         if (currentNote != -1) {
-            return harmonicSet.Tick(config->samplerate, hz / 10.0, config->paramA * 2000.0) * config->volume;
+            return harmonicSet.Tick(config->samplerate, hz, config->paramA, config->paramB, config->paramC) * config->volume;
         } else {
             return 0.0;
         }
