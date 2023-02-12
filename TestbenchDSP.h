@@ -30,7 +30,7 @@ class TestbenchDSP {
     }
 
     void Trigger( int note, int velocity ) {
-
+        this->harmonicSet.SetSquare();
     }
 
     void Release() {
