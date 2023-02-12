@@ -22,7 +22,7 @@ class TestbenchDSP {
     // methods
     TestbenchDSP(const TestbenchConfig* config) {
         this->config = config;
-        this->harmonicSet.SetSquare();
+        this->harmonicSet.SetSquare(0.0);
     }
     void ModWheel(double value) {
     }
@@ -30,7 +30,7 @@ class TestbenchDSP {
     }
 
     void Trigger( int note, int velocity ) {
-        this->harmonicSet.SetSquare();
+        
     }
 
     void Release() {
@@ -55,6 +55,7 @@ class TestbenchDSP {
     }
 
     double Tick() {
+        this->harmonicSet.SetSquare(config->paramD);
         double a = 440; //frequency of A (coomon value is 440Hz)
         double hz = (a) * pow(2, (((currentNote) - 69.0) / 12.0));
         if (currentNote != -1) {

@@ -37,16 +37,20 @@ class HarmonicSet {
     HarmonicSet() {
     }
 
-    void SetSquare() {
+    void SetSquare(double markSpaceRatio) {
+
         for (int i = 0 ; i < NUM_HARMONICS; i++) {
             const int harmonic = i+1;
             this->harmonics[i] = harmonic;
-            if (harmonic % 2 == 0) {
-                this->volumes[i] = 0.0;
-                this->harmonics[i] = harmonic;
-            } else {
-                this->volumes[i] = 1.0 / harmonic;
-            }
+            // fabs give the square wave
+            this->volumes[i] = fabs(2.0 / (harmonic) * sin(harmonic * M_PI * markSpaceRatio));
+           
+            // if (harmonic % 2 == 0) {
+            //     this->volumes[i] = 0.0;
+            //     this->harmonics[i] = harmonic;
+            // } else {
+            //     this->volumes[i] = 1.0 / harmonic;
+            // }
         }
     }
 
