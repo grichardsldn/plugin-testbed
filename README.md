@@ -1,2 +1,2 @@
-# Testbench
-A basic MPE capable synthesier plug-in with IGraphics GUI
+# plugin testbed
+Boilerplate for experimenting with audio processing using the wonderful iPlug2 framework.
